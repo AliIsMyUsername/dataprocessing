@@ -12,24 +12,26 @@ import re
 file_path = r'E:\Data_V3\Data\04Rx16C\s11\1.txt'
 
 # Parameters to search for
-# params = [" a", " a_B", " d", " h", " h_B", " HL"]
-#
-# # Dictionary to store parameter values
-# param_values = {}
-#
-# # Read the file and search for parameters
-# with open(file_path, 'r') as file:
-#     content = file.read()
-#     for param in params:
-#         # Regular expression to find the parameter and its value
-#         match = re.search(rf"{param}=(\d+\.?\d*);", content)
-#         if match:
-#             param_values[param] = float(match.group(1))
-#
-# # Print the found parameter values
-# for param, value in param_values.items():
-#     print(f"{param} = {value}")
+params = [" a", " a_B", " d", " h", " h_B", " HL"]
 
+# Dictionary to store parameter values
+param_values = {}
+
+# Read the file and search for parameters
+with open(file_path, 'r') as file:
+    content = file.read()
+    for param in params:
+        # Regular expression to find the parameter and its value
+        match = re.search(rf"{param}=(\d+\.?\d*);", content)
+        if match:
+            param_values[param] = float(match.group(1))
+
+# Print the found parameter values
+
+
+
+
+# Lists to store frequencies, S2 magnitudes, and S3 magnitudes
 frequencies = []
 s2_magnitudes = []
 s3_magnitudes = []
@@ -60,6 +62,20 @@ with open(file_path, 'r') as file:
                 s3_mag = float(parts[1])  # S3 magnitude in dB
                 s3_magnitudes.append(s3_mag)
 
-# Display extracted data
-# for freq, s2_mag, s3_mag in zip(frequencies, s2_magnitudes, s3_magnitudes):
-#     print(f"Frequency: {freq} GHz, S2 Magnitude: {s2_mag} dB, S3 Magnitude: {s3_mag} dB")
+# Create a DataFrame from the lists
+df = pd.DataFrame({
+    'Frequency (GHz)': frequencies,
+    'S2 Magnitude (dB)': s2_magnitudes,
+    'S3 Magnitude (dB)': s3_magnitudes
+})
+for param, value in param_values.items():
+    # print(f"{param} = {value}")
+    df.insert(0, param, value)
+df.insert(0, 'C', 16)
+df.insert(0, 'R', 4)
+
+# Display the DataFrame
+print(df)
+
+# Optionally, save the DataFrame to a CSV file
+df.to_csv(r'E:\Data_V3\Data\04Rx16C\s11\frequency_magnitudes.csv', index=False)
