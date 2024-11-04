@@ -8,7 +8,7 @@ from matplotlib.ticker import FuncFormatter
 import re
 
 # Base folder path
-base_path = r'E:\Data_V3\Data\08Rx08C\s11'
+base_path = r'E:\Data_V3\Data\08Rx16C\s11'
 # Loop through numbers and construct paths
 for i in range(10, 89):
     file_path = os.path.join(base_path, f"{i}.txt")
@@ -96,7 +96,7 @@ for i in range(10, 89):
     # Add parameter values as columns in the DataFrame
     for param, value in param_values.items():
         df.insert(0, param, value)
-    df.insert(0, 'C', 8)  # Insert 'C' as 32
+    df.insert(0, 'C', 16)  # Insert 'C' as 32
     df.insert(0, 'R', 8)   # Insert 'R' as 4
 
     # Calculate the average of S2 to S7 and add it as a new column
