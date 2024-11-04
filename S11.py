@@ -11,6 +11,7 @@ import re
 base_path = r'E:\Data_V3\Data\04Rx16C\s11'
 # file_path = r'E:\Data_V3\Data\04Rx16C\s11\1.txt'
 # Loop through numbers and construct paths
+# it has to be done in two segments from 1 to 9 and then from 10 to
 for i in range(1, 91):
     file_path = os.path.join(base_path, f"{i}.txt")
 
@@ -42,6 +43,8 @@ for i in range(1, 91):
         data_section = None  # None = Not started, 'S2' = S2 section, 'S3' = S3 section
         for line in file:
             # Detect start of data sections
+            # #-----------------------------------------------  from 1 to 9
+            # #------------------------------------------------ from 10 onwards
             if line.strip() == "#-----------------------------------------------":
                 # Toggle between S2 and S3 sections after encountering each separator
                 data_section = 'S2' if data_section is None else 'S3'
@@ -82,5 +85,5 @@ for i in range(1, 91):
     # Optionally, save the DataFrame to a CSV file
     savePath=os.path.join(base_path, f"{i}.csv")
     df.to_csv(savePath, index=False)
-git 
+
 
