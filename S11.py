@@ -8,9 +8,9 @@ from matplotlib.ticker import FuncFormatter
 import re
 
 # Base folder path
-base_path = r'E:\Data_V3\Data\08Rx32C\s11'
+base_path = r'E:\Data_V3\Data\16Rx16C\s11'
 # Loop through numbers and construct paths
-for i in range(31, 90):
+for i in range(10, 91):
     file_path = os.path.join(base_path, f"{i}.txt")
 
     # Parameters to search for
@@ -28,7 +28,7 @@ for i in range(31, 90):
             if match:
                 param_values[param] = float(match.group(1))
 
-    # Lists to store frequencies and S-magnitudes (S2 to S7)
+    # Lists to store frequencies and S-magnitudes (S2 to S15)
     frequencies = []
     s2_magnitudes = []
     s3_magnitudes = []
@@ -36,14 +36,22 @@ for i in range(31, 90):
     s5_magnitudes = []
     s6_magnitudes = []
     s7_magnitudes = []
+    s8_magnitudes = []
+    s9_magnitudes = []
+    s10_magnitudes = []
+    s11_magnitudes = []
+    s12_magnitudes = []
+    s13_magnitudes = []
+    s14_magnitudes = []
+    s15_magnitudes = []
 
     # Read the file and parse the data sections
     with open(file_path, 'r') as file:
         data_section = None  # Track which section (S2, S3, ...) we're processing
         for line in file:
-            # Detect start of data sections for S2 to S7
+            # Detect start of data sections for S2 to S15
             if line.strip() == "#-----------------------------------------------------":
-                # Toggle to next section (S2 to S7) after encountering each separator
+                # Toggle to next section (S2 to S15) after encountering each separator
                 if data_section is None:
                     data_section = 'S2'
                 elif data_section == 'S2':
@@ -56,6 +64,22 @@ for i in range(31, 90):
                     data_section = 'S6'
                 elif data_section == 'S6':
                     data_section = 'S7'
+                elif data_section == 'S7':
+                    data_section = 'S8'
+                elif data_section == 'S8':
+                    data_section = 'S9'
+                elif data_section == 'S9':
+                    data_section = 'S10'
+                elif data_section == 'S10':
+                    data_section = 'S11'
+                elif data_section == 'S11':
+                    data_section = 'S12'
+                elif data_section == 'S12':
+                    data_section = 'S13'
+                elif data_section == 'S13':
+                    data_section = 'S14'
+                elif data_section == 'S14':
+                    data_section = 'S15'
                 continue
 
             # Process the respective data sections (frequency and magnitude)
@@ -81,7 +105,41 @@ for i in range(31, 90):
                 elif data_section == 'S7':
                     s7_mag = float(parts[1])  # S7 magnitude in dB
                     s7_magnitudes.append(s7_mag)
+                elif data_section == 'S8':
+                    s8_mag = float(parts[1])  # S8 magnitude in dB
+                    s8_magnitudes.append(s8_mag)
+                elif data_section == 'S9':
+                    s9_mag = float(parts[1])  # S9 magnitude in dB
+                    s9_magnitudes.append(s9_mag)
+                elif data_section == 'S10':
+                    s10_mag = float(parts[1])  # S10 magnitude in dB
+                    s10_magnitudes.append(s10_mag)
+                elif data_section == 'S11':
+                    s11_mag = float(parts[1])  # S11 magnitude in dB
+                    s11_magnitudes.append(s11_mag)
+                elif data_section == 'S12':
+                    s12_mag = float(parts[1])  # S12 magnitude in dB
+                    s12_magnitudes.append(s12_mag)
+                elif data_section == 'S13':
+                    s13_mag = float(parts[1])  # S13 magnitude in dB
+                    s13_magnitudes.append(s13_mag)
+                elif data_section == 'S14':
+                    s14_mag = float(parts[1])  # S14 magnitude in dB
+                    s14_magnitudes.append(s14_mag)
+                elif data_section == 'S15':
+                    s15_mag = float(parts[1])  # S15 magnitude in dB
+                    s15_magnitudes.append(s15_mag)
 
+    df9 = pd.DataFrame({'S9 Magnitude (dB)': s9_magnitudes})
+
+    reshaped_data = pd.DataFrame(df9['S9 Magnitude (dB)'].values.reshape(1001, 7))
+
+    # Optionally, rename the columns if needed
+    reshaped_data.columns = [f'Column_{i + 1}' for i in range(7)]
+
+    # Display the reshaped DataFrame
+    # Column_1  Column_2  Column_3  Column_4  Column_5  Column_6  Column_7
+    # print(reshaped_data['Column_1'])
     # Create a DataFrame from the lists
     df = pd.DataFrame({
         'Frequency (GHz)': frequencies,
@@ -90,18 +148,26 @@ for i in range(31, 90):
         'S4 Magnitude (dB)': s4_magnitudes,
         'S5 Magnitude (dB)': s5_magnitudes,
         'S6 Magnitude (dB)': s6_magnitudes,
-        'S7 Magnitude (dB)': s7_magnitudes
+        'S7 Magnitude (dB)': s7_magnitudes,
+        'S8 Magnitude (dB)': s8_magnitudes,
+        'S9 Magnitude (dB)': reshaped_data['Column_1'],
+        'S10 Magnitude (dB)': reshaped_data['Column_2'],
+        'S11 Magnitude (dB)': reshaped_data['Column_3'],
+        'S12 Magnitude (dB)': reshaped_data['Column_4'],
+        'S13 Magnitude (dB)': reshaped_data['Column_5'],
+        'S14 Magnitude (dB)': reshaped_data['Column_6'],
+        'S15 Magnitude (dB)': reshaped_data['Column_7']
     })
 
     # Add parameter values as columns in the DataFrame
     for param, value in param_values.items():
         df.insert(0, param, value)
-    df.insert(0, 'C', 32)  # Insert 'C' as 32
-    df.insert(0, 'R', 8)   # Insert 'R' as 4
+    df.insert(0, 'C', 16)  # Insert 'C' as 32
+    df.insert(0, 'R', 16)   # Insert 'R' as 4
 
-    # Calculate the average of S2 to S7 and add it as a new column
-    df['S Average'] = df.iloc[:, -6:].mean(axis=1)
-    df.drop(df.columns[-7:-1], axis=1, inplace=True)
+    # Calculate the average of S2 to S15 and add it as a new column
+    df['S Average'] = df.iloc[:, -14:].mean(axis=1)
+    df.drop(df.columns[-15:-1], axis=1, inplace=True)
 
     # Optionally, save the DataFrame to a CSV file
     savePath = os.path.join(base_path, f"{i}.csv")
