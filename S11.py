@@ -8,7 +8,7 @@ from matplotlib.ticker import FuncFormatter
 import re
 
 # Base folder path
-base_path = r'E:\Data_V3\Data\16Rx16C\s11'
+base_path = r'E:\Data_V3\Data\16Rx32C\s11'
 # Loop through numbers and construct paths
 for i in range(10, 91):
     file_path = os.path.join(base_path, f"{i}.txt")
@@ -50,7 +50,7 @@ for i in range(10, 91):
         data_section = None  # Track which section (S2, S3, ...) we're processing
         for line in file:
             # Detect start of data sections for S2 to S15
-            if line.strip() == "#-----------------------------------------------------":
+            if line.strip() == "#------------------------------------------------":
                 # Toggle to next section (S2 to S15) after encountering each separator
                 if data_section is None:
                     data_section = 'S2'
@@ -162,7 +162,7 @@ for i in range(10, 91):
     # Add parameter values as columns in the DataFrame
     for param, value in param_values.items():
         df.insert(0, param, value)
-    df.insert(0, 'C', 16)  # Insert 'C' as 32
+    df.insert(0, 'C', 32)  # Insert 'C' as 32
     df.insert(0, 'R', 16)   # Insert 'R' as 4
 
     # Calculate the average of S2 to S15 and add it as a new column
