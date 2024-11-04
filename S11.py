@@ -8,11 +8,11 @@ from matplotlib.ticker import FuncFormatter
 import re
 
 # Base folder path
-base_path = r'E:\Data_V3\Data\04Rx16C\s11'
+base_path = r'E:\Data_V3\Data\04Rx32C\s11'
 # file_path = r'E:\Data_V3\Data\04Rx16C\s11\1.txt'
 # Loop through numbers and construct paths
 # it has to be done in two segments from 1 to 9 and then from 10 to
-for i in range(1, 91):
+for i in range(100, 114):
     file_path = os.path.join(base_path, f"{i}.txt")
 
 
@@ -43,9 +43,9 @@ for i in range(1, 91):
         data_section = None  # None = Not started, 'S2' = S2 section, 'S3' = S3 section
         for line in file:
             # Detect start of data sections
-            # #-----------------------------------------------  from 1 to 9
-            # #------------------------------------------------ from 10 onwards
-            if line.strip() == "#-----------------------------------------------":
+            # #-----------------------------------------------------  from 24 to 99
+            # #------------------------------------------------------ from 100 onwards
+            if line.strip() == "#------------------------------------------------------":
                 # Toggle between S2 and S3 sections after encountering each separator
                 data_section = 'S2' if data_section is None else 'S3'
                 continue
@@ -75,7 +75,7 @@ for i in range(1, 91):
     for param, value in param_values.items():
         # print(f"{param} = {value}")
         df.insert(0, param, value)
-    df.insert(0, 'C', 16)
+    df.insert(0, 'C', 32)
     df.insert(0, 'R', 4)
     df['S Average '] = df.iloc[:, -2:].mean(axis=1)
     df.drop(df.columns[-3:-1], axis=1, inplace=True)
