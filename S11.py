@@ -1,14 +1,10 @@
 import pandas as pd
 import os
-import matplotlib.pyplot as plt
-import numpy as np
-from matplotlib.widgets import Slider
-import seaborn as sns
-from matplotlib.ticker import FuncFormatter
 import re
 
 # Base folder path
-base_path = r'E:\Data_V3\Data\16Rx32C\s11'
+base_path = r'E:\Data_V3\Data\32Rx32C\s11'
+
 # Loop through numbers and construct paths
 for i in range(10, 91):
     file_path = os.path.join(base_path, f"{i}.txt")
@@ -28,7 +24,7 @@ for i in range(10, 91):
             if match:
                 param_values[param] = float(match.group(1))
 
-    # Lists to store frequencies and S-magnitudes (S2 to S15)
+    # Lists to store frequencies and S-magnitudes (S2 to S31)
     frequencies = []
     s2_magnitudes = []
     s3_magnitudes = []
@@ -44,14 +40,30 @@ for i in range(10, 91):
     s13_magnitudes = []
     s14_magnitudes = []
     s15_magnitudes = []
+    s16_magnitudes = []
+    s17_magnitudes = []
+    s18_magnitudes = []
+    s19_magnitudes = []
+    s20_magnitudes = []
+    s21_magnitudes = []
+    s22_magnitudes = []
+    s23_magnitudes = []
+    s24_magnitudes = []
+    s25_magnitudes = []
+    s26_magnitudes = []
+    s27_magnitudes = []
+    s28_magnitudes = []
+    s29_magnitudes = []
+    s30_magnitudes = []
+    s31_magnitudes = []
 
     # Read the file and parse the data sections
     with open(file_path, 'r') as file:
         data_section = None  # Track which section (S2, S3, ...) we're processing
         for line in file:
-            # Detect start of data sections for S2 to S15
-            if line.strip() == "#------------------------------------------------":
-                # Toggle to next section (S2 to S15) after encountering each separator
+            # Detect start of data sections for S2 to S31
+            if line.strip() == "#------------------------------------------------------":
+                # Toggle to next section (S2 to S31) after encountering each separator
                 if data_section is None:
                     data_section = 'S2'
                 elif data_section == 'S2':
@@ -80,6 +92,38 @@ for i in range(10, 91):
                     data_section = 'S14'
                 elif data_section == 'S14':
                     data_section = 'S15'
+                elif data_section == 'S15':
+                    data_section = 'S16'
+                elif data_section == 'S16':
+                    data_section = 'S17'
+                elif data_section == 'S17':
+                    data_section = 'S18'
+                elif data_section == 'S18':
+                    data_section = 'S19'
+                elif data_section == 'S19':
+                    data_section = 'S20'
+                elif data_section == 'S20':
+                    data_section = 'S21'
+                elif data_section == 'S21':
+                    data_section = 'S22'
+                elif data_section == 'S22':
+                    data_section = 'S23'
+                elif data_section == 'S23':
+                    data_section = 'S24'
+                elif data_section == 'S24':
+                    data_section = 'S25'
+                elif data_section == 'S25':
+                    data_section = 'S26'
+                elif data_section == 'S26':
+                    data_section = 'S27'
+                elif data_section == 'S27':
+                    data_section = 'S28'
+                elif data_section == 'S28':
+                    data_section = 'S29'
+                elif data_section == 'S29':
+                    data_section = 'S30'
+                elif data_section == 'S30':
+                    data_section = 'S31'
                 continue
 
             # Process the respective data sections (frequency and magnitude)
@@ -129,17 +173,65 @@ for i in range(10, 91):
                 elif data_section == 'S15':
                     s15_mag = float(parts[1])  # S15 magnitude in dB
                     s15_magnitudes.append(s15_mag)
-
+                elif data_section == 'S16':
+                    s16_mag = float(parts[1])  # S16 magnitude in dB
+                    s16_magnitudes.append(s16_mag)
+                elif data_section == 'S17':
+                    s17_mag = float(parts[1])  # S17 magnitude in dB
+                    s17_magnitudes.append(s17_mag)
+                elif data_section == 'S18':
+                    s18_mag = float(parts[1])  # S18 magnitude in dB
+                    s18_magnitudes.append(s18_mag)
+                elif data_section == 'S19':
+                    s19_mag = float(parts[1])  # S19 magnitude in dB
+                    s19_magnitudes.append(s19_mag)
+                elif data_section == 'S20':
+                    s20_mag = float(parts[1])  # S20 magnitude in dB
+                    s20_magnitudes.append(s20_mag)
+                elif data_section == 'S21':
+                    s21_mag = float(parts[1])  # S21 magnitude in dB
+                    s21_magnitudes.append(s21_mag)
+                elif data_section == 'S22':
+                    s22_mag = float(parts[1])  # S22 magnitude in dB
+                    s22_magnitudes.append(s22_mag)
+                elif data_section == 'S23':
+                    s23_mag = float(parts[1])  # S23 magnitude in dB
+                    s23_magnitudes.append(s23_mag)
+                elif data_section == 'S24':
+                    s24_mag = float(parts[1])  # S24 magnitude in dB
+                    s24_magnitudes.append(s24_mag)
+                elif data_section == 'S25':
+                    s25_mag = float(parts[1])  # S25 magnitude in dB
+                    s25_magnitudes.append(s25_mag)
+                elif data_section == 'S26':
+                    s26_mag = float(parts[1])  # S26 magnitude in dB
+                    s26_magnitudes.append(s26_mag)
+                elif data_section == 'S27':
+                    s27_mag = float(parts[1])  # S27 magnitude in dB
+                    s27_magnitudes.append(s27_mag)
+                elif data_section == 'S28':
+                    s28_mag = float(parts[1])  # S28 magnitude in dB
+                    s28_magnitudes.append(s28_mag)
+                elif data_section == 'S29':
+                    s29_mag = float(parts[1])  # S29 magnitude in dB
+                    s29_magnitudes.append(s29_mag)
+                elif data_section == 'S30':
+                    s30_mag = float(parts[1])  # S30 magnitude in dB
+                    s30_magnitudes.append(s30_mag)
+                elif data_section == 'S31':
+                    s31_mag = float(parts[1])  # S31 magnitude in dB
+                    s31_magnitudes.append(s31_mag)
     df9 = pd.DataFrame({'S9 Magnitude (dB)': s9_magnitudes})
 
-    reshaped_data = pd.DataFrame(df9['S9 Magnitude (dB)'].values.reshape(1001, 7))
-
+    reshaped_data = pd.DataFrame(df9['S9 Magnitude (dB)'].values.reshape(1001, 23))
+    # print(df9.size)
     # Optionally, rename the columns if needed
-    reshaped_data.columns = [f'Column_{i + 1}' for i in range(7)]
+    reshaped_data.columns = [f'Column_{i + 1}' for i in range(23)]
 
     # Display the reshaped DataFrame
     # Column_1  Column_2  Column_3  Column_4  Column_5  Column_6  Column_7
-    # print(reshaped_data['Column_1'])
+    # print(reshaped_data)
+    # Create a DataFrame from the lists
     # Create a DataFrame from the lists
     df = pd.DataFrame({
         'Frequency (GHz)': frequencies,
@@ -156,18 +248,34 @@ for i in range(10, 91):
         'S12 Magnitude (dB)': reshaped_data['Column_4'],
         'S13 Magnitude (dB)': reshaped_data['Column_5'],
         'S14 Magnitude (dB)': reshaped_data['Column_6'],
-        'S15 Magnitude (dB)': reshaped_data['Column_7']
+        'S15 Magnitude (dB)': reshaped_data['Column_7'],
+        'S16 Magnitude (dB)': reshaped_data['Column_8'],
+        'S17 Magnitude (dB)': reshaped_data['Column_9'],
+        'S18 Magnitude (dB)': reshaped_data['Column_10'],
+        'S19 Magnitude (dB)': reshaped_data['Column_11'],
+        'S20 Magnitude (dB)': reshaped_data['Column_12'],
+        'S21 Magnitude (dB)': reshaped_data['Column_13'],
+        'S22 Magnitude (dB)': reshaped_data['Column_14'],
+        'S23 Magnitude (dB)': reshaped_data['Column_15'],
+        'S24 Magnitude (dB)': reshaped_data['Column_16'],
+        'S25 Magnitude (dB)': reshaped_data['Column_17'],
+        'S26 Magnitude (dB)': reshaped_data['Column_18'],
+        'S27 Magnitude (dB)': reshaped_data['Column_19'],
+        'S28 Magnitude (dB)': reshaped_data['Column_20'],
+        'S29 Magnitude (dB)': reshaped_data['Column_21'],
+        'S30 Magnitude (dB)': reshaped_data['Column_22'],
+        'S31 Magnitude (dB)': reshaped_data['Column_23']
     })
 
     # Add parameter values as columns in the DataFrame
     for param, value in param_values.items():
         df.insert(0, param, value)
     df.insert(0, 'C', 32)  # Insert 'C' as 32
-    df.insert(0, 'R', 16)   # Insert 'R' as 4
+    df.insert(0, 'R', 32)   # Insert 'R' as 4
 
-    # Calculate the average of S2 to S15 and add it as a new column
-    df['S Average'] = df.iloc[:, -14:].mean(axis=1)
-    df.drop(df.columns[-15:-1], axis=1, inplace=True)
+    # Calculate the average of S2 to S31 and add it as a new column
+    df['S Average'] = df.iloc[:, -30:].mean(axis=1)
+    df.drop(df.columns[-31:-1], axis=1, inplace=True)
 
     # Optionally, save the DataFrame to a CSV file
     savePath = os.path.join(base_path, f"{i}.csv")
