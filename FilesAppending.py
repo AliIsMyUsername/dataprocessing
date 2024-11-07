@@ -2,10 +2,10 @@ import os
 import pandas as pd
 
 # Directory containing the CSV files
-folder_path = r'E:\Data_V3\Data\S11\Combined'
+folder_path = r'E:\Data_V3\Data\S11\Combined\New folder'
 
 # Output file where the combined data will be saved
-output_file = 'S11_allData.csv'
+output_file = 'S11_4&8&16&32R.csv'
 
 # List to hold all the dataframes
 dataframes = []
