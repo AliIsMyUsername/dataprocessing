@@ -3,10 +3,10 @@ import os
 import re
 
 # Base folder path
-base_path = r'E:\Data_V3\Data\04Rx16C\phi90'
+base_path = r'E:\Data_V3\Data\32Rx32C\phi90'
 
 # Loop through numbers and construct paths
-for i in range(1,2 ):
+for i in range(1,91):
     file_path = os.path.join(base_path, f"{i}.txt")
 
     # Parameters to search for
@@ -62,8 +62,8 @@ for i in range(1,2 ):
     df.columns = column_names
     for param, value in param_values.items():
         df.insert(0, param, value)
-    df.insert(0, 'C', 16)  # Insert 'C' as 32
-    df.insert(0, 'R', 4)   # Insert 'R' as 4
+    df.insert(0, 'C', 32)  # Insert 'C' as 32
+    df.insert(0, 'R', 32)   # Insert 'R' as 4
     # print(df)
     # csv_file_path = r'E:\Data_V3\Data\04Rx16C\phi90\output_V2.csv'
     # df.to_csv(csv_file_path, index=False, header=True)
